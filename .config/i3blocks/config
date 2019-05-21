@@ -2,6 +2,14 @@ command=~/.local/bin/statusbar/$BLOCK_NAME
 separator_block_width=15
 markup=pango
 
+[disk]
+interval=60
+command=~/.local/bin/statusbar/disk /
+
+#[disk]
+#interval=60
+#command=disk /home 🏠
+
 #[record]
 #command=cat /tmp/recordingicon
 #interval=once
@@ -50,13 +58,8 @@ label=💻
 interval=once
 signal=10
 
-[disk]
-interval=60
-command=~/.local/bin/statusbar/disk /
-
-#[disk]
-#interval=60
-#command=disk /home 🏠
+[internet]
+interval=10
 
 [battery]
 command=~/.local/bin/statusbar/battery BAT1
@@ -66,8 +69,6 @@ interval=5
 label=📅
 interval=30
 
-[internet]
-interval=10
-
 #[help]
 #interval=once
+
