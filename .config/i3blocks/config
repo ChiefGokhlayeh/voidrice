@@ -60,6 +60,12 @@ label=🧠
 interval=15
 label=💻
 
+[apt-upgrades]
+command=~/.local/bin/statusbar/apt-upgrades -s ' ' -N
+label=🔄
+signal=1
+interval=once
+
 [volume]
 interval=once
 signal=10
