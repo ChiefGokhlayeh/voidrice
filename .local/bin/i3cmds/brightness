@@ -1,0 +1,23 @@
+#!/bin/sh
+
+set -e
+
+usage() {
+	echo "Usage: $(basename "$0") +/-DELTA
+ARGS:
+    DELTA       Relative brightness value between 0.00 and 1.00.
+                Setting DELTA to 0.10 (or +0.10) will increment brightness by
+                10% of the absolute. Conversly setting DELTA to -0.10 will
+                decrement brightness by 10% of the absolute.
+"
+}
+
+upper="1.00"
+lower="0.15"
+
+current_perc=$(xrandr --verbose | grep -m 1 -i brightness | cut -f2 -d ' ')
+new_perc=$({ printf "%.2f+" "$current_perc" ; echo "$1" | sed "s/+//" ; } | bc | awk '{printf "%.2f\n'"$upper"'", $0}' | sort -n | head -n1 | awk '{printf "%.2f\n'"$lower"'", $0}' | sort -n | tail -n1)
+echo "$new_perc"
+
+xrandr -q | grep -m1 -o ".* connected" | sed "s/ connected//" | xargs -I % sh -c "xrandr --output % --brightness $new_perc"
+
