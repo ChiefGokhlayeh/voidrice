@@ -2,6 +2,12 @@ command=~/.local/bin/statusbar/$BLOCK_NAME
 separator_block_width=15
 markup=pango
 
+[usb]
+command=~/.local/bin/statusbar/usb -i nvme0n1p1 -i nvme0n1p2 -i nvme0n1p3 -i nvme0n1p4 -i nvme0n1p5 -i nvme0n1p6
+markup=pango
+signal=1
+interval=10
+
 [disk]
 interval=60
 command=~/.local/bin/statusbar/disk /
