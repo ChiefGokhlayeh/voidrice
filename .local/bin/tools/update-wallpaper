@@ -1,0 +1,16 @@
+#!/bin/sh
+
+mode=1
+
+case $mode in
+	0)
+	res_dir="/home/andreas/.local/bin/wallpaper"
+	find "$res_dir"/*.png "$res_dir"/*.jpg | sort -R | tail -n1 | feh --bg-scale -f -
+	;;
+	1)
+	base_url=https://raw.githubusercontent.com/LukeSmithxyz/wallpapers/master
+	path_in_repo=`curl https://api.github.com/repos/LukeSmithxyz/wallpapers/git/trees/master?recursive=1 | jq '.tree[].path' | sort -R | tail -n 1 | sed 's/"//g'`
+	feh --bg-scale -Z "$base_url/$path_in_repo"
+	;;
+esac
+

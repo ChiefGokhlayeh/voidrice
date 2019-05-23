@@ -1,0 +1,15 @@
+[Unit]
+Description=i3 Wallpaper Provider
+Wants=network-online.target
+After=network.target network-online.target
+
+[Service]
+Type=simple
+RestartSec=180s
+Restart=always
+Environment=DISPLAY=:0
+ExecStart=/home/andreas/.local/bin/tools/update-wallpaper
+
+[Install]
+WantedBy=graphical.target
+
