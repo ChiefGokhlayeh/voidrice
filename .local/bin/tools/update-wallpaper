@@ -9,7 +9,22 @@ case $mode in
 	;;
 	1)
 	base_url=https://raw.githubusercontent.com/LukeSmithxyz/wallpapers/master
-	path_in_repo=`curl https://api.github.com/repos/LukeSmithxyz/wallpapers/git/trees/master?recursive=1 | jq '.tree[].path' | sort -R | tail -n 1 | sed 's/"//g'`
+	cache_file="$(dirname $(mktemp --dry-run))/$(basename $0)-$(date +%Y-%m-%d).cache"
+	if [ ! -f "$cache_file" ]; then
+		curl https://api.github.com/repos/LukeSmithxyz/wallpapers/git/trees/master?recursive=1 \
+			| jq '.tree[].path' \
+			| grep -E '*.png|*.jpg' \
+			| sed 's/"//g' \
+			| python3 -c "
+import urllib.parse;
+import sys;
+for line in sys.stdin.readlines():
+	print(urllib.parse.quote(line[0:-1]))" \
+		       	> "$cache_file"
+	fi
+	path_in_repo=$(cat "$cache_file" \
+		| sort -R \
+		| tail -n 1)
 	feh --bg-scale -Z "$base_url/$path_in_repo"
 	;;
 esac
