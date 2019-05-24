@@ -3,7 +3,6 @@ Description="Shadow and transparency for windows"
 
 [Service]
 Type=simple
-Environment=DISPLAY=:0
 ExecStart=/usr/bin/xcompmgr -c -C -f -F -r 0 -D 3
 
 [Install]
