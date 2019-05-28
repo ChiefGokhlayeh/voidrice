@@ -77,6 +77,11 @@ interval=10
 command=~/.local/bin/statusbar/battery BAT1
 interval=5
 
+[bandwidth]
+command=~/.local/bin/statusbar/bandwidth -u MB
+interval=persist
+markup=pango
+
 [clock]
 label=📅
 interval=30
