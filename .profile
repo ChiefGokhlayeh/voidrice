@@ -5,6 +5,7 @@
 export PATH="$PATH:$(du "$HOME/.local/bin/" | cut -f2 | tr '\n' ':' | sed 's/:*$//')"
 export EDITOR="vim"
 export TERMINAL="hyper"
+export TERMINAL_INVOKE="gnome-terminal -x"
 export BROWSER="firefox"
 export READER="zathura"
 export FILE="vifm"
