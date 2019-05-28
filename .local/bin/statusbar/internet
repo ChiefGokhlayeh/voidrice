@@ -7,11 +7,19 @@ case $BLOCK_BUTTON in
 📶: wifi connection with quality
 ❎: no ethernet
 🌐: ethernet working
+🛡️: VPN enabled
 " ;;
 esac
 
 [ "$(cat /sys/class/net/w*/operstate)" = 'down' ] && wifiicon="📡"
 
+vpnicon=""
+for tun in $(dirname $(find -L /sys/class/net -maxdepth 2 -name "tun_flags" 2>/dev/null))
+do
+	[ "$(cat $tun/carrier)" = '1' ] && vpnicon="🛡️"
+done
+
 [ ! -n "${wifiicon+var}" ] && wifiicon=$(grep "^\s*w" /proc/net/wireless | awk '{ print "📶", int($3 * 100 / 70) "%" }')
 
-printf "%s %s" "$wifiicon" "$(cat /sys/class/net/e*/operstate | sed "s/down/❎/;s/up/🌐/")"
+printf "%s %s %s" "$wifiicon" "$(cat /sys/class/net/e*/operstate | sed "s/down/❎/;s/up/🌐/")" "$vpnicon"
+
