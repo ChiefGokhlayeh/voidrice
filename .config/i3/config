@@ -195,8 +195,8 @@ bindsym $mod+Home exec "x-www-browser"
 # open vscode
 bindsym $mod+c exec "code"
 
-# open keepassx
-bindsym $mod+k exec "keepassx"
+# open keepassxc
+bindsym $mod+k exec "keepassxc"
 
 # control gaps
 bindsym $mod+plus gaps inner current minus 5
