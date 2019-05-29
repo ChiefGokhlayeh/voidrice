@@ -4,8 +4,8 @@
 # Adds `~/.scripts` and all subdirectories to $PATH
 export PATH="$PATH:$(du "$HOME/.local/bin/" | cut -f2 | tr '\n' ':' | sed 's/:*$//')"
 export EDITOR="vim"
-export TERMINAL="hyper"
-export TERMINAL_INVOKE="gnome-terminal -x"
+export TERMINAL="st"
+export TERMINAL_INVOKE="st -e"
 export BROWSER="firefox"
 export READER="zathura"
 export FILE="vifm"

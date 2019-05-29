@@ -11,7 +11,6 @@
 
 # Set initial values for border and window title
 for_window [class="^.*"] border pixel 4
-for_window [class="Hyper"] exec "transset -a 0.8"
 gaps inner 10
 gaps outer 0
 
@@ -37,7 +36,7 @@ font pango:monospace 8
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec "i3-sensible-terminal"
+bindsym $mod+Return exec "$TERMINAL"
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -216,7 +215,7 @@ bindsym $mod+L exec "i3lock-fancy"
 bindsym $mod+O exec --no-startup-id "transset -a --inc 0.05"
 bindsym $mod+Mod1+O exec --no-startup-id "transset -a 1"
 bindsym $mod+T exec --no-startup-id "transset -a --dec 0.05"
-bindsym $mod+Mod1+T exec --no-startup-id "transset -a 0.8"
+bindsym $mod+Mod1+T exec --no-startup-id "transset -a 0.85"
 
 # Ensure services are running
 exec --no-startup-id "systemctl start --user shadow.service"
