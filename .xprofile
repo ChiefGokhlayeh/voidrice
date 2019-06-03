@@ -7,7 +7,10 @@
 # Properties button extra Mod/Escape
 #xmodmap -e 'keycode 135 = Super_R' &
 #xset r rate 300 50 &	# Speed xrate up
-#unclutter &		# Remove mouse when idle
+unclutter &		# Remove mouse when idle
 #xcompmgr &		# xcompmgr for transparency
-#dunst &			# dunst for notifications
+dunst &			# dunst for notifications
+touchpad-indicator & # touchpad-indicator to avoid accidental mouse movements
+xrdb ~/.Xresources & # load color theme
+synology-cloud-station-drive & # start cloud sync
 #mpdupdate &
