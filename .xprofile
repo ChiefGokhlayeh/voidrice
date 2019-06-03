@@ -11,6 +11,5 @@ unclutter &		# Remove mouse when idle
 #xcompmgr &		# xcompmgr for transparency
 dunst &			# dunst for notifications
 touchpad-indicator & # touchpad-indicator to avoid accidental mouse movements
-xrdb ~/.Xresources & # load color theme
 synology-cloud-station-drive & # start cloud sync
 #mpdupdate &
