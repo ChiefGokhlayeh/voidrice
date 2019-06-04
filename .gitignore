@@ -1,1 +1,3 @@
 .config/systemd/user/*.wants
+.gnupg
+!.gnupg/gpg-agent.conf
