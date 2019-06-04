@@ -13,3 +13,9 @@ dunst &			# dunst for notifications
 touchpad-indicator & # touchpad-indicator to avoid accidental mouse movements
 synology-cloud-station-drive & # start cloud sync
 #mpdupdate &
+xinput list --id-only \
+		| xargs -I {} \
+			sh -c "xinput list-props {} | grep 'libinput Accel Speed' > /dev/null && xinput set-prop {} 'libinput Accel Speed' -1" # Disable mouse acceleration for libinput mice
+xinput list --id-only \
+		| xargs -I {} \
+			sh -c "xinput list-props {} | grep 'Device Accel Profile' > /dev/null && xinput set-prop {} 'Device Accel Profile' -1" # Disable mouse acceleration for other mice/joysticks/touchpads
