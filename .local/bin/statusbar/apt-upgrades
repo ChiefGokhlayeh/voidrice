@@ -19,6 +19,10 @@ ALWAYS_PRINT=${ALWAYS_PRINT:-1}
 PENDING_COLOR=${PENDING_COLOR:-"#00FF00"}
 NONPENDING_COLOR=${NONPENDING_COLOR:-"#FFFFFF"}
 
+case $BLOCK_BUTTON in
+		1) $TERMINAL_INVOKE sudo apt full-upgrade;;
+esac
+
 while getopts s:oc:n:Nh opt; do
     case "$opt" in
         s) PENDING_SYMBOL="$OPTARG" ;;
