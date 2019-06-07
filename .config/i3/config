@@ -173,12 +173,13 @@ mode "resize" {
 bar {
         font pango:Monospace 10
         status_command i3blocks
+        i3bar_command i3bar -t
         position top
         mode dock
         colors {
                 separator #444444
-                background #222222
-                statusline #666666
+                background #222222D8
+                statusline #888888
                 focused_workspace #d70a53 #d70a53 #ffffff #151718
                 active_workspace #333333 #333333 #888888 #151718
                 inactive_workspace #333333 #333333 #888888 #AAAAAA
