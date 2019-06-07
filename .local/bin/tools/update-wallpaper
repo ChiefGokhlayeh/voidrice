@@ -1,19 +1,49 @@
 #!/bin/sh
 
-mode=1
+DEFAULT_DIR="${DEFAULT_DIR:-$HOME/Bilder}"
+DEFAULT_GITHUB="${DEFAULT_GITHUB:-https://raw.githubusercontent.com/LukeSmithxyz/wallpapers/master}"
+
+mode='github'
+source=
+filter=
+
+usage() { echo "Usage: $(basename "$0") [-m MODE] [-s SRC] [FILTER]" 1>&2; }
+
+help() { usage; echo "Options:
+    -m MODE Select \\e[3mdir\\e[0m to look for wallpapers in a directory. If set
+            to \\e[3mgithub\\e[0m the wallpaper will be downloaded from a github
+            repository. Default value is \\e[3mgithub\\e[0m.
+    -s SRC  Set the directory or base url (depending on MODE).
+Positional Arguments:
+    FITLER  Will be used to filter for specific filenames using grep like
+            syntax." 1>&2;
+}
+
+while getopts "m:s:h" flag; do
+		case "$flag" in
+				m) mode="$OPTARG";;
+				s) source="$OPTARG";;
+				?) help; exit 1;;
+				*) usage; exit 1;;
+		esac
+done
+
+shift $((OPTIND-1))
+
+filter="$1"
 
 case $mode in
-	0)
-	res_dir="/home/andreas/.local/bin/wallpaper"
-	find "$res_dir"/*.png "$res_dir"/*.jpg | sort -R | tail -n1 | feh --bg-scale -f -
+	'dir')
+	[ ! -z "$source" ] && res_dir="$source" || res_dir="$DEFAULT_DIR"
+	find "$res_dir"/*.png "$res_dir"/*.jpg 2>/dev/null | sort -R | head -n1 | feh --bg-scale -f -
 	;;
-	1)
-	base_url=https://raw.githubusercontent.com/LukeSmithxyz/wallpapers/master
-	cache_file="$(dirname $(mktemp --dry-run))/$(basename $0)-$(date +%Y-%m-%d).cache"
+	'github')
+	[ ! -z "$source" ] && base_url="$source" || base_url="$DEFAULT_GITHUB"
+	cache_file="$(dirname "$(mktemp --dry-run)")/$(basename "$0")-$(date +%Y-%m-%d).cache"
 	if [ ! -s "$cache_file" ]; then
 		curl https://api.github.com/repos/LukeSmithxyz/wallpapers/git/trees/master?recursive=1 \
 			| jq '.tree[].path' \
-			| grep -E '*.png|*.jpg' \
+			| grep -E '.*.png|.*.jpg' \
 			| sed 's/"//g' \
 			| python3 -c "
 import urllib.parse;
@@ -22,10 +52,15 @@ for line in sys.stdin.readlines():
 	print(urllib.parse.quote(line[0:-1]))" \
 		       	> "$cache_file"
 	fi
-	path_in_repo=$(cat "$cache_file" \
+	path_in_repo=$(grep "$filter" "$cache_file" \
 		| sort -R \
-		| tail -n 1)
-	feh --bg-scale -Z "$base_url/$path_in_repo"
+		| head -n 1)
+	[ -z "$path_in_repo" ] && echo "Could not find any wallpapers matching: $filter" || feh --bg-scale -Z "$base_url/$path_in_repo"
+	;;
+	*)
+	echo "Invalid MODE: $mode" 1>&2
+	usage
+	exit 1
 	;;
 esac
 
