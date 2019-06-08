@@ -212,6 +212,11 @@ bindsym $mod+Shift+minus gaps inner all plus 5
 bindsym XF86MonBrightnessUp exec --no-startup-id "~/.local/bin/i3cmds/brightness +0.10"
 bindsym XF86MonBrightnessDown exec --no-startup-id "~/.local/bin/i3cmds/brightness -0.10"
 
+# control volume
+bindsym XF86AudioRaiseVolume exec --no-startup-id "pactl set-sink-volume @DEFAULT_SINK@ +5% && pkill -RTMIN+10 i3blocks"
+bindsym XF86AudioLowerVolume exec --no-startup-id "pactl set-sink-volume @DEFAULT_SINK@ -5% && pkill -RTMIN+10 i3blocks"
+bindsym XF86AudioMute exec --no-startup-id "pactl set-sink-mute @DEFAULT_SINK@ toggle && pkill -RTMIN+10 i3blocks"
+
 # lock screen
 bindsym $mod+L exec "i3lock-fancy"
 
