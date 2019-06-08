@@ -20,7 +20,7 @@ PENDING_COLOR=${PENDING_COLOR:-"#00FF00"}
 NONPENDING_COLOR=${NONPENDING_COLOR:-"#FFFFFF"}
 
 case $BLOCK_BUTTON in
-		1) $TERMINAL_INVOKE sudo apt full-upgrade;;
+		1) $TERMINAL_INVOKE "sudo apt update && sudo apt full-upgrade";;
 esac
 
 while getopts s:oc:n:Nh opt; do
