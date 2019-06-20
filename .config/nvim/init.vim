@@ -18,6 +18,7 @@ Plug 'bling/vim-airline'
 "Plug 'tpope/vim-commentary'
 "Plug 'vifm/vifm.vim'
 "Plug 'kovetskiy/sxhkd-vim'
+Plug 'tpope/vim-sleuth'
 call plug#end()
 
 set bg=light
