@@ -236,6 +236,7 @@ assign [class="Code"] 3
 assign [class="Steam"] 5
 for_window [title="Steam - News"] floating enable
 for_window [title="Friends List.*"] floating enable
+for_window [class="gnuplot_qt"] floating enable
 assign [class="discord"] 5
 assign [class="TelegramDesktop"] 5
 
