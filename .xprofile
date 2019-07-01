@@ -21,3 +21,6 @@ xinput list --id-only \
 xinput list --id-only \
 		| xargs -I {} \
 			sh -c "xinput list-props {} | grep 'Device Accel Profile' > /dev/null && xinput set-prop {} 'Device Accel Profile' -1" # Disable mouse acceleration for other mice/joysticks/touchpads
+
+export QT_QPA_PLATFORMTHEME=gtk2
+
