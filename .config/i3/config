@@ -250,6 +250,7 @@ for_window [class="gnuplot_qt"] "floating enable, border normal; mark --add --to
 for_window [class="Firefox" title="Bibliothek"] "floating enable, border normal; mark --add --toggle f;"
 for_window [class="GNU Octave" title="Figure .*"] "floating enable, border normal; mark --add --toggle f;"
 for_window [class="octave-gui" title="Figure .*"] "floating enable, border normal; mark --add --toggle f;"
+for_window [class="Gnome-calculator"] "floating enable, border normal; mark --add --toggle f;"
 assign [class="discord"] $ws5
 assign [class="TelegramDesktop"] $ws5
 
