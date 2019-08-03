@@ -5,7 +5,7 @@ markup=pango
 [window title]
 command=xtitle -s
 interval=persist
-color=#d70a53
+color=#f92672
 align=center
 min_width=1024
 
@@ -16,8 +16,7 @@ interval=10
 
 [disk]
 interval=60
-command=~/.local/bin/statusbar/disk /
-label=
+command=~/.local/bin/statusbar/disk / 
 
 #[disk]
 #interval=60
@@ -61,11 +60,9 @@ label=
 
 [memory]
 interval=30
-label=
 
 [cpu]
 interval=15
-label=
 
 [apt-upgrades]
 command=~/.local/bin/statusbar/apt-upgrades -s ' ' -N
@@ -90,7 +87,6 @@ interval=persist
 markup=pango
 
 [clock]
-label=
 interval=30
 
 #[help]

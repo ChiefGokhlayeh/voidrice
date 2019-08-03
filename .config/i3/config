@@ -9,6 +9,20 @@
 #
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
+# Import .Xresources colors
+exec --no-startup-id xrdb ~/.Xresources
+set_from_resource $background       color0              #000000
+set_from_resource $background2      color10             #333333
+set_from_resource $trans_background trans_background    #333333aa
+set_from_resource $foreground       color7              #ffffff
+set_from_resource $foreground2      color8              #eeeeee
+set_from_resource $separator        color12             #888888
+set_from_resource $red              color1              #ff0000
+set_from_resource $green            color2              #00ff00
+set_from_resource $blue             color4              #0000ff
+set_from_resource $red2             color52             #8c0333
+set_from_resource $pink             color164            #eb709b
+
 # Set initial values for border and window title
 set $default_border pixel 4
 default_border $default_border
@@ -190,13 +204,13 @@ bar {
         position top
         mode dock
         colors {
-                separator #444444
-                background #222222D8
-                statusline #888888
-                focused_workspace #d70a53 #d70a53 #ffffff #151718
-                active_workspace #333333 #333333 #888888 #151718
-                inactive_workspace #333333 #333333 #888888 #AAAAAA
-                urgent_workspace #eb709b #eb709b #ffffff #FFFFFF
+                separator $separator
+                background $trans_background
+                statusline $foreground2
+                focused_workspace $red $red $foreground
+                active_workspace $trans_background $trans_background $foreground2
+                inactive_workspace $trans_background $trans_background $foreground2
+                urgent_workspace $pink $pink $foreground
         }
 }
 
@@ -254,7 +268,7 @@ for_window [class="Gnome-calculator"] "floating enable, border normal; mark --ad
 assign [class="discord"] $ws5
 assign [class="TelegramDesktop"] $ws5
 
-client.focused #d70a53 #d70a53ff #ffffff #8c0333
-client.focused_inactive #333333aa #333333 #888888 #333333
-client.unfocused #333333 #333333aa #888888 #333333
-client.urgent #eb709b #eb709baa #ffffff #eb709b
+client.focused $red $red $foreground $red2
+client.focused_inactive $trans_background $trans_background $foreground $background
+client.unfocused $trans_background $trans_background $foreground2 $background
+client.urgent $pink $pink $foreground $pink

@@ -7,4 +7,8 @@ case $BLOCK_BUTTON in
 - % is of single core." ;;
 esac
 
-sensors | awk '/Core 0/ {print $3}'
+temp=$(sensors | awk '/Core 0/ {printf $3}')
+color=$(xrdb -query | grep color6 -m 1 | cut -f 2)
+
+printf "<span color='%s'> %s</span>" "$color" "$temp"
+

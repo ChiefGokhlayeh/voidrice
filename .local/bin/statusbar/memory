@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 case $BLOCK_BUTTON in
 	1) notify-send " Memory hogs" "$(ps axch -o cmd:15,%mem --sort=-%mem | head)" ;;
@@ -8,5 +8,9 @@ esac
 
 # Set language to international or otherwise 'free' will output in the current
 # system language
-LC_ALL=C free -h | awk '/^Mem:/ {print $3 "/" $2}'
+read used total <<< $(LC_ALL=C free -h | awk '/^Mem:/ {print $3 " " $2}')
+
+color=$(xrdb -query | grep color5 -m 1 | cut -f 2)
+
+printf "<span color='$color'> %s / %s</span>" "$used" "$total"
 

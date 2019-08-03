@@ -19,25 +19,25 @@ do
     status=$(cat /sys/class/power_supply/"$bat"/status)
 
     if [ "$capacity" -ge 75 ]; then
-	color="#00ff00"
+	color="$(xrdb -query | grep color2 -m 1 | cut -f 2)"
 	discharge=""
     elif [ "$capacity" -ge 50 ]; then
-	color="#ffffff"
+	color="$(xrdb -query | grep color3 -m 1 | cut -f 2)"
 	discharge=""
     elif [ "$capacity" -ge 25 ]; then
-	color="#ffff00"
+	color="$(xrdb -query | grep color1 -m 1 | cut -f 2)"
 	discharge=""
     else
-	color="#ff0000"
+	color="$(xrdb -query | grep color1 -m 1 | cut -f 2)"
 	discharge=""
 	warn=""
     fi
 
     [ -z $warn ] && warn=" "
 
-    [ "$status" = "Charging" ] && color="#ffffff"
+    [ "$status" = "Charging" ] && color="$(xrdb -query | grep color4 -m 1 | cut -f 2)"
 
-    printf "<span color='%s'>%s%s%s</span>" "$color" "$(echo "$status" | sed -e "s/,//;s/Discharging/$discharge/;s/Not Charging//;s/Charging//;s/Unknown//;s/Full//;s/ 0*/ /g;s/ :/ /g")" "$warn" "$(echo "$capacity" | sed -e 's/$/%/')"
+    printf "<span color='%s'>%s %s %s</span>" "$color" "$warn" "$(echo "$status" | sed -e "s/,//;s/Discharging/$discharge/;s/Not Charging//;s/Charging//;s/Unknown//;s/Full//;s/ 0*/ /g;s/ :/ /g")" "$(echo "$capacity" | sed -e 's/$/%/')"
 
     if [ "$count" -gt 1 ]; then
 	printf " "

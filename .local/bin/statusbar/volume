@@ -16,10 +16,13 @@ vol=$(pulsemixer --get-volume | awk '{print $1}')
 
 if [ "$vol" -gt "70" ]; then
 	icon=""
+	color=$(xrdb -query | grep color1 -m 1 | cut -f 2)
 elif [ "$vol" -lt "30" ]; then
-	icon=""
-else
 	icon=""
+	color=$(xrdb -query | grep color2 -m 1 | cut -f 2)
+else
+	icon=""
+	color=$(xrdb -query | grep color3 -m 1 | cut -f 2)
 fi
 
-printf "%s %s%%\\n" "$icon" "$vol"
+printf "<span color='%s'>%s %s%%</span>" "$color" "$icon" "$vol"
