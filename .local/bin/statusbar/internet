@@ -2,24 +2,24 @@
 
 case $BLOCK_BUTTON in
 	1) $TERMINAL_INVOKE nmtui ;;
-	3) pgrep -x dunst >/dev/null && notify-send "🌐 Internet module" "\- Click to connect
-📡: no wifi connection
-📶: wifi connection with quality
-❎: no ethernet
-🌐: ethernet working
-🛡️: VPN enabled
+	3) pgrep -x dunst >/dev/null && notify-send " Internet module" "\- Click to connect
+: no wifi connection
+: wifi connection with quality
+: no ethernet
+: ethernet working
+: VPN enabled
 " ;;
 esac
 
-[ "$(cat /sys/class/net/w*/operstate)" = 'down' ] && wifiicon="📡"
+[ "$(cat /sys/class/net/w*/operstate)" = 'down' ] && wifiicon=""
 
 vpnicon=""
 for tun in $(dirname $(find -L /sys/class/net -maxdepth 2 -name "tun_flags" 2>/dev/null))
 do
-	[ "$(cat $tun/carrier)" = '1' ] && vpnicon="🛡️"
+	[ "$(cat $tun/carrier)" = '1' ] && vpnicon=" "
 done
 
-[ ! -n "${wifiicon+var}" ] && wifiicon=$(grep "^\s*w" /proc/net/wireless | awk '{ print "📶", int($3 * 100 / 70) "%" }')
+[ ! -n "${wifiicon+var}" ] && wifiicon=$(grep "^\s*w" /proc/net/wireless | awk '{ print "", int($3 * 100 / 70) "%" }')
 
-printf "%s %s %s" "$wifiicon" "$(cat /sys/class/net/e*/operstate | sed "s/down/❎/;s/up/🌐/")" "$vpnicon"
+printf "%s %s %s" "$wifiicon" "$(cat /sys/class/net/e*/operstate | sed "s/down//;s/up//")" "$vpnicon"
 

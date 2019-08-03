@@ -17,6 +17,7 @@ interval=10
 [disk]
 interval=60
 command=~/.local/bin/statusbar/disk /
+label=
 
 #[disk]
 #interval=60
@@ -60,15 +61,15 @@ command=~/.local/bin/statusbar/disk /
 
 [memory]
 interval=30
-label=🧠
+label=
 
 [cpu]
 interval=15
-label=💻
+label=
 
 [apt-upgrades]
 command=~/.local/bin/statusbar/apt-upgrades -s ' ' -N
-label=🔄
+label=
 signal=1
 interval=once
 
@@ -89,7 +90,7 @@ interval=persist
 markup=pango
 
 [clock]
-label=📅
+label=
 interval=30
 
 #[help]

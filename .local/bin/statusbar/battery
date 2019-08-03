@@ -2,31 +2,46 @@
 # Give a battery name (e.g. BAT0) as an argument.
 
 case $BLOCK_BUTTON in
-    3) pgrep -x dunst >/dev/null && notify-send "🔋 Battery module" "🔋: discharging
-🛑: not charging
+    3) pgrep -x dunst >/dev/null && notify-send " Battery module" ": discharging
+: not charging
 ♻: stagnant charge
-🔌: charging
-⚡: charged
-❗: battery very low!
+: charging
+: charged
+: battery very low!
 - Text color reflects charge left" ;;
 esac
 
-capacity=$(cat /sys/class/power_supply/"$1"/capacity) || exit
-status=$(cat /sys/class/power_supply/"$1"/status)
+count="$#"
 
-if [ "$capacity" -ge 75 ]; then
+for bat in "$@"
+do
+    capacity=$(cat /sys/class/power_supply/"$bat"/capacity) || exit
+    status=$(cat /sys/class/power_supply/"$bat"/status)
+
+    if [ "$capacity" -ge 75 ]; then
 	color="#00ff00"
-elif [ "$capacity" -ge 50 ]; then
+	discharge=""
+    elif [ "$capacity" -ge 50 ]; then
 	color="#ffffff"
-elif [ "$capacity" -ge 25 ]; then
+	discharge=""
+    elif [ "$capacity" -ge 25 ]; then
 	color="#ffff00"
-else
+	discharge=""
+    else
 	color="#ff0000"
-	warn="❗"
-fi
+	discharge=""
+	warn=""
+    fi
 
-[ -z $warn ] && warn=" "
+    [ -z $warn ] && warn=" "
 
-[ "$status" = "Charging" ] && color="#ffffff"
+    [ "$status" = "Charging" ] && color="#ffffff"
 
-printf "<span color='%s'>%s%s%s</span>" "$color" "$(echo "$status" | sed -e "s/,//;s/Discharging/🔋/;s/Not Charging/🛑/;s/Charging/🔌/;s/Unknown/♻️/;s/Full/⚡/;s/ 0*/ /g;s/ :/ /g")" "$warn" "$(echo "$capacity" | sed -e 's/$/%/')"
+    printf "<span color='%s'>%s%s%s</span>" "$color" "$(echo "$status" | sed -e "s/,//;s/Discharging/$discharge/;s/Not Charging//;s/Charging//;s/Unknown//;s/Full//;s/ 0*/ /g;s/ :/ /g")" "$warn" "$(echo "$capacity" | sed -e 's/$/%/')"
+
+    if [ "$count" -gt 1 ]; then
+	printf " "
+	count=$((count-1))
+    fi
+done
+
