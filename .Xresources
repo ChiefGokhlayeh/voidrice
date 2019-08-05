@@ -24,6 +24,9 @@ st.borderpx: 2
 #define base0D    #66d9ef
 #define base0E    #ae81ff
 #define base0F    #cc6633
+#define base11    #bca3a3
+#define base12    #e6db74
+#define base13    #960050
 #define baseFF00  #272822aa
 
 *foreground:        base05
@@ -48,3 +51,7 @@ st.borderpx: 2
 *color13:       base06
 *color14:       base0F
 *color15:       base07
+
+*color17:       base11
+*color18:       base12
+*color19:       base13
