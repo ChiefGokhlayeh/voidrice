@@ -17,4 +17,4 @@ esac
 
 color=$(xrdb -query | grep color9 -m 1 | cut -f 2)
 
-printf "<span color='%s'>%s: %s</span>" "$color" "$icon" "$(df -h "$1" | awk ' /[0-9]/ {print $3 "/" $2}')"
+printf "<span color='%s'>%s %s</span>" "$color" "$icon" "$(df -h "$1" | awk ' /[0-9]/ {print $3 " / " $2}')"
