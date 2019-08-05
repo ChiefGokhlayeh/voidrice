@@ -1,14 +1,27 @@
-#!/bin/sh
+#!/bin/bash
+
+governor=$(cpufreq-info -p | cut -f 3 -d ' ')
 
 case $BLOCK_BUTTON in
 	1) notify-send " CPU hogs" "$(ps axch -o cmd:15,%cpu --sort=-%cpu | head)" ;;
+	2)
+		governors=$(cpufreq-info -g)
+		index=$(echo "$governors" | tr ' ' '\n ' | grep -n "$governor" | cut -f 1 -d ':')
+		index=$(echo "$index % $(echo "$governors" | wc -w) + 1"  | bc)
+		governor=$(echo "$governors" | cut -f "$index" -d ' ')
+		for ((i=0;i<$(nproc);i++)); do
+			sudo cpufreq-set -c "$i" -g "$governor"
+		done
+		governor=$(cpufreq-info -p | cut -f 3 -d ' ')
+		;;
 	3) notify-send " CPU module " "\- Shows CPU temperature.
 - Click to show intensive processes.
+- Middle click to toggle through CPU governors.
 - % is of single core." ;;
 esac
 
-temp=$(sensors | awk '/Core 0/ {printf $3}')
+temp=$(sensors | awk '/Core */ {sum+=$3;cnt++} END{printf sum/cnt}')
 color=$(xrdb -query | grep color6 -m 1 | cut -f 2)
 
-printf "<span color='%s'> %s</span>" "$color" "$temp"
+LC_ALL=C printf "<span color='%s'> %.1f°C %s</span>" "$color" "$temp" "$(echo "$governor" | sed -e 's/powersave//; s/performance//')"
 
