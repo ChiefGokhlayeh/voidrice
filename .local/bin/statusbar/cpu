@@ -20,8 +20,30 @@ case $BLOCK_BUTTON in
 - % is of single core." ;;
 esac
 
-temp=$(sensors | awk '/Core */ {sum+=$3;cnt++} END{printf sum/cnt}')
-color=$(xrdb -query | grep color6 -m 1 | cut -f 2)
+read temp high_temp crit_temp <<< $(sensors | awk '/Core */ {sum+=$3;cnt++;high=(high>$6)?high:$6;crit=(crit>$9)?crit:$9;} END{printf "%.1f %.1f %.1f", sum/cnt, high, crit}')
+ambient="25.0"
 
-LC_ALL=C printf "<span color='%s'> %.1f°C %s</span>" "$color" "$temp" "$(echo "$governor" | sed -e 's/powersave//; s/performance//')"
+if [ $(echo "$temp >= ($crit_temp - $high_temp) / 2 + $high_temp" | bc -l) -eq 1 ]; then
+	icon=''
+	warn=' '
+	color=$(xrdb -query | grep color1 -m 1 | cut -f 2)
+elif [ $(echo "$temp >= $high_temp" | bc -l) -eq 1 ]; then
+	icon=''
+	warn=''
+	color=$(xrdb -query | grep color1 -m 1 | cut -f 2)
+elif [ $(echo "$temp >= ($high_temp - $ambient) / 3 * 2 + $ambient" | bc -l) -eq 1 ]; then
+	icon=''
+	warn=''
+	color=$(xrdb -query | grep color5 -m 1 | cut -f 2)
+elif [ $(echo "$temp >= ($high_temp - $ambient) / 3 * 1 + $ambient" | bc -l) -eq 1 ]; then
+	icon=''
+	warn=''
+	color=$(xrdb -query | grep color5 -m 1 | cut -f 2)
+else
+	icon=''
+	warn=''
+	color=$(xrdb -query | grep color4 -m 1 | cut -f 2)
+fi
+
+LC_ALL=C printf "<span color='%s'>%s%s %.1f°C %s</span>" "$color" "$icon" "$warn" "$temp" "$(echo "$governor" | sed -e 's/powersave//; s/performance//')"
 
