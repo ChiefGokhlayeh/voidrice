@@ -9,14 +9,20 @@ color=#f92672
 align=center
 min_width=1024
 
-[usb]
-command=~/.local/bin/statusbar/usb -i nvme0n1p1 -i nvme0n1p2 -i nvme0n1p3 -i nvme0n1p4 -i nvme0n1p5 -i nvme0n1p6
-signal=1
-interval=10
+[cpu]
+interval=15
+
+[memory]
+interval=30
 
 [disk]
 interval=60
 command=~/.local/bin/statusbar/disk / 
+
+[usb]
+command=~/.local/bin/statusbar/usb -i nvme0n1p1 -i nvme0n1p2 -i nvme0n1p3 -i nvme0n1p4 -i nvme0n1p5 -i nvme0n1p6
+signal=1
+interval=10
 
 #[disk]
 #interval=60
@@ -57,12 +63,6 @@ command=~/.local/bin/statusbar/disk / 
 #label=📬
 #interval=180
 #signal=12
-
-[memory]
-interval=30
-
-[cpu]
-interval=15
 
 [apt-upgrades]
 command=~/.local/bin/statusbar/apt-upgrades -s ' ' -N

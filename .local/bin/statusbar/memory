@@ -10,7 +10,7 @@ esac
 # system language
 read used total <<< $(LC_ALL=C free -h | awk '/^Mem:/ {print $3 " " $2}')
 
-color=$(xrdb -query | grep color5 -m 1 | cut -f 2)
+color=$(xrdb -query | grep color9 -m 1 | cut -f 2)
 
 printf "<span color='$color'> %s / %s</span>" "$used" "$total"
 
