@@ -14,14 +14,14 @@ esac
 [ "$(cat /sys/class/net/w*/operstate)" = 'down' ] && wifiicon=""
 
 vpnicon=""
-for tun in $(dirname $(find -L /sys/class/net -maxdepth 2 -name "tun_flags" 2>/dev/null))
+for tun in $(find -L /sys/class/net -maxdepth 2 -name "tun_flags" 2>/dev/null)
 do
-	[ "$(cat $tun/carrier)" = '1' ] && vpnicon=" "
+	[ "$(cat $(dirname $tun)/carrier)" = '1' ] && vpnicon=" "
 done
 
 [ ! -n "${wifiicon+var}" ] && wifiicon=$(grep "^\s*w" /proc/net/wireless | awk '{ print "", int($3 * 100 / 70) "%" }')
 
 color=$(xrdb -query | grep color14 -m 1 | cut -f 2)
 
-printf "<span color='%s'>%s %s %s</span>" "$color" "$wifiicon" "$(cat /sys/class/net/e*/operstate | sed "s/down//;s/up//")" "$vpnicon"
+printf "<span color='%s'>%s %s %s</span>" "$color" "$wifiicon" "$(paste -d ' ' /sys/class/net/e*/operstate | sed "s/down//;s/up//" | tr -d '\n')" "$vpnicon"
 
