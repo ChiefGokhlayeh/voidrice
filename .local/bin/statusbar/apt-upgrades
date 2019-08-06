@@ -7,7 +7,7 @@
 # i3blocks blocklet script to display pending system upgrades
 
 # FontAwesome refresh symbol, change if you do not want to install FontAwesome
-PENDING_SYMBOL=${PENDING_SYMBOL:-"\uf021 "}
+PENDING_SYMBOL=${PENDING_SYMBOL:-"\uf021"}
 
 # By default, show both the symbol and the numbers
 SYMBOL_ONLY=${SYMBOL_ONLY:-0}
@@ -16,8 +16,9 @@ SYMBOL_ONLY=${SYMBOL_ONLY:-0}
 ALWAYS_PRINT=${ALWAYS_PRINT:-1}
 
 # Colors for when there is/isn't a pending upgrade
-PENDING_COLOR=${PENDING_COLOR:-"#00FF00"}
-NONPENDING_COLOR=${NONPENDING_COLOR:-"#FFFFFF"}
+PENDING_COLOR=${PENDING_COLOR:-"$(xrdb -query | grep color6 -m 1 | cut -f 2)"}
+NONPENDING_COLOR=${NONPENDING_COLOR:-"$(xrdb -query | grep color12 -m 1 | cut -f 2)"}
+TEXT_COLOR=${TEXT_COLOR:-"$(xrdb -query | grep color13 -m 1 | cut -f 2)"}
 
 case $BLOCK_BUTTON in
 		1) $TERMINAL_INVOKE sudo apt full-upgrade;
@@ -51,19 +52,14 @@ LC_ALL=C apt-get full-upgrade --simulate --assume-yes |\
     xargs echo)
 
 if [[ $upgraded != 0 ]] || [[ $new != 0 ]] || [[ $removed != 0 ]] || [[ $held != 0 ]]; then
-    color="$PENDING_COLOR"
+    icon_color="$PENDING_COLOR"
     if [[ $SYMBOL_ONLY == 1 ]]; then
-        echo -e "$PENDING_SYMBOL"
-        echo -e "$PENDING_SYMBOL"
+        printf "<span color='%s'>%s</span>" "$icon_color" "$PENDING_SYMBOL"
     else
-        echo -e "$PENDING_SYMBOL$upgraded/$new/$removed/$held"
-        echo -e "$PENDING_SYMBOL$upgraded/$new/$removed/$held"
+        printf "<span color='%s'>%s</span> <span color='%s'>%s / %s / %s / %s</span>" "$icon_color" "$PENDING_SYMBOL" "$TEXT_COLOR" "$upgraded" "$new" "$removed" "$held"
     fi
-    echo $color
 elif [[ $ALWAYS_PRINT == 1 ]]; then
-    color="$NONPENDING_COLOR"
-    echo -e "$PENDING_SYMBOL$upgraded/$new/$removed/$held"
-    echo -e "$PENDING_SYMBOL$upgraded/$new/$removed/$held"
-    echo $color
+    icon_color="$NONPENDING_COLOR"
+    printf "<span color='%s'>%s</span> <span color='%s'>%s / %s / %s / %s</span>" "$icon_color" "$PENDING_SYMBOL" "$TEXT_COLOR" "$upgraded" "$new" "$removed" "$held"
 fi
 

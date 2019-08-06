@@ -1,8 +1,9 @@
 #!/bin/sh
 
-color=$(xrdb -query | grep color7 -m 1 | cut -f 2)
+icon_color=$(xrdb -query | grep color2 -m 1 | cut -f 2)
+text_color=$(xrdb -query | grep color13 -m 1 | cut -f 2)
 
-printf "<span color='%s'> %s</span>" "$color" "$(date '+%Y-%m-%d %H:%M')"
+printf "<span color='%s'></span> <span color='%s'>%s</span>" "$icon_color" "$text_color" "$(date '+%Y-%m-%d %H:%M')"
 
 case $BLOCK_BUTTON in
 	1) pgrep -x dunst >/dev/null && notify-send "This Month" "$(cal --color=always | sed "s/..7m/<b><span color=\"red\">/;s/..27m/<\/span><\/b>/")" && notify-send "Appointments" "$(calcurse -D ~/.config/calcurse -d3)" ;;

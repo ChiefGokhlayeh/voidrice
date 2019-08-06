@@ -26,24 +26,24 @@ ambient="25.0"
 if [ $(echo "$temp >= ($crit_temp - $high_temp) / 2 + $high_temp" | bc -l) -eq 1 ]; then
 	icon=''
 	warn=' '
-	color=$(xrdb -query | grep color1 -m 1 | cut -f 2)
+	icon_color=$(xrdb -query | grep color1 -m 1 | cut -f 2)
 elif [ $(echo "$temp >= $high_temp" | bc -l) -eq 1 ]; then
 	icon=''
 	warn=''
-	color=$(xrdb -query | grep color1 -m 1 | cut -f 2)
+	icon_color=$(xrdb -query | grep color1 -m 1 | cut -f 2)
 elif [ $(echo "$temp >= ($high_temp - $ambient) / 3 * 2 + $ambient" | bc -l) -eq 1 ]; then
 	icon=''
 	warn=''
-	color=$(xrdb -query | grep color5 -m 1 | cut -f 2)
+	icon_color=$(xrdb -query | grep color5 -m 1 | cut -f 2)
 elif [ $(echo "$temp >= ($high_temp - $ambient) / 3 * 1 + $ambient" | bc -l) -eq 1 ]; then
 	icon=''
 	warn=''
-	color=$(xrdb -query | grep color5 -m 1 | cut -f 2)
+	icon_color=$(xrdb -query | grep color5 -m 1 | cut -f 2)
 else
 	icon=''
 	warn=''
-	color=$(xrdb -query | grep color4 -m 1 | cut -f 2)
+	icon_color=$(xrdb -query | grep color4 -m 1 | cut -f 2)
 fi
 
-LC_ALL=C printf "<span color='%s'>%s%s %.1f°C %s</span>" "$color" "$icon" "$warn" "$temp" "$(echo "$governor" | sed -e 's/powersave//; s/performance//')"
+LC_ALL=C printf "<span color='%s'>%s%s</span> <span color='%s'>%.1f°C %s</span>" "$icon_color" "$icon" "$warn" "$(xrdb -query | grep color13 -m 1 | cut -f 2)" "$temp" "$(echo "$governor" | sed -e "s~powersave~<span color='$(xrdb -query | grep color2 -m 1 | cut -f 2)'></span>~; s~performance~<span color='$(xrdb -query | grep color3 -m 1 | cut -f 2)'></span>~")"
 

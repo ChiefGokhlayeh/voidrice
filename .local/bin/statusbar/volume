@@ -13,16 +13,17 @@ esac
 [ "$(pulsemixer --get-mute)" = "1" ] && printf "\\n" && exit
 
 vol=$(pulsemixer --get-volume | awk '{print $1}')
+text_color=$(xrdb -query | grep color13 -m 1 | cut -f 2)
 
 if [ "$vol" -gt "70" ]; then
 	icon=""
-	color=$(xrdb -query | grep color1 -m 1 | cut -f 2)
+	icon_color=$(xrdb -query | grep color1 -m 1 | cut -f 2)
 elif [ "$vol" -lt "30" ]; then
 	icon=""
-	color=$(xrdb -query | grep color2 -m 1 | cut -f 2)
+	icon_color=$(xrdb -query | grep color2 -m 1 | cut -f 2)
 else
 	icon=""
-	color=$(xrdb -query | grep color3 -m 1 | cut -f 2)
+	icon_color=$(xrdb -query | grep color3 -m 1 | cut -f 2)
 fi
 
-printf "<span color='%s'>%s %s%%</span>" "$color" "$icon" "$vol"
+printf "<span color='%s'>%s</span> <span color='%s'>%s%%</span>" "$icon_color" "$icon" "$text_color" "$vol"

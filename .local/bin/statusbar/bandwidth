@@ -9,9 +9,10 @@ iface="${BLOCK_INSTANCE}"
 iface="${IFACE:-$iface}"
 dt="${DT:-3}"
 unit="${UNIT:-Mb}"
-color=$(xrdb -query | grep color4 -m 1 | cut -f 2)
+icon_color=$(xrdb -query | grep color4 -m 1 | cut -f 2)
+text_color=$(xrdb -query | grep color13 -m 1 | cut -f 2)
 LABEL="${LABEL:- }" # down arrow up arrow
-printf_command="${PRINTF_COMMAND:-"printf \"<span color='$color'>${LABEL}%-5.1f/%5.1f %s/s</span>\\n\", rx, wx, unit;"}"
+printf_command="${PRINTF_COMMAND:-"printf \"<span color='$icon_color'>${LABEL}</span><span color='$text_color'>%-5.1f/%5.1f %s/s</span>\\n\", rx, wx, unit;"}"
 
 function default_interface {
     ip route | awk '/^default via/ {print $5; exit}'
