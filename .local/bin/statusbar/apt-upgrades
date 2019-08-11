@@ -7,7 +7,7 @@
 # i3blocks blocklet script to display pending system upgrades
 
 # FontAwesome refresh symbol, change if you do not want to install FontAwesome
-PENDING_SYMBOL=${PENDING_SYMBOL:-"\uf021"}
+PENDING_SYMBOL=${PENDING_SYMBOL:-""}
 
 # By default, show both the symbol and the numbers
 SYMBOL_ONLY=${SYMBOL_ONLY:-0}
