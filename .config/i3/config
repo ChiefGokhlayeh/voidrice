@@ -250,6 +250,9 @@ bindsym $mod+Mod1+O exec --no-startup-id "transset -a 1"
 bindsym $mod+T exec --no-startup-id "transset -a --dec 0.05"
 bindsym $mod+Mod1+T exec --no-startup-id "transset -a 0.85"
 
+bindsym $mod+P exec --no-startup-id "xrandr --auto"
+bindsym $mod+Shift+P exec "arandr"
+
 # Ensure services are running
 exec --no-startup-id "systemctl restart --user xcompmgr.service"
 exec --no-startup-id "systemctl restart --user wallpaper.service"
@@ -265,6 +268,7 @@ for_window [class="Firefox" title="Bibliothek"] "floating enable, border normal;
 for_window [class="GNU Octave" title="Figure .*"] "floating enable, border normal; mark --add --toggle f;"
 for_window [class="octave-gui" title="Figure .*"] "floating enable, border normal; mark --add --toggle f;"
 for_window [class="Gnome-calculator"] "floating enable, border normal; mark --add --toggle f;"
+for_window [class="Arandr"] "floating enable, border normal; mark --add --toggle f;"
 assign [class="discord"] $ws5
 assign [class="TelegramDesktop"] $ws5
 
