@@ -3,27 +3,6 @@
 export QT_QPA_PLATFORMTHEME=gtk2
 
 USRRESOURCES=$HOME/.Xresources
-#setbg &		# Set the background
-#sxhkd &	# Bind keys
-# Switch to US international with Caps as Mod/Escape
-#setxkbmap -option caps:super -variant altgr-intl && killall xcape 2>/dev/null ; xcape -e 'Super_L=Escape' &
-# Properties button extra Mod/Escape
-#xmodmap -e 'keycode 135 = Super_R' &
-#xset r rate 300 50 &	# Speed xrate up
-xset +fp /home/andreas/.local/share/fonts
-xset fp rehash
-#unclutter &	# Remove mouse when idle
-#xcompmgr &		# xcompmgr for transparency
-dunst &			# dunst for notifications
-#touchpad-indicator & # touchpad-indicator to avoid accidental mouse movements
-synology-cloud-station-drive & # start cloud sync
-#mpdupdate &
-xinput list --id-only \
-		| xargs -I {} \
-			sh -c "xinput list-props {} | grep 'libinput Accel Speed' > /dev/null && xinput set-prop {} 'libinput Accel Speed' -1" # Disable mouse acceleration for libinput mice
-xinput list --id-only \
-		| xargs -I {} \
-			sh -c "xinput list-props {} | grep 'Device Accel Profile' > /dev/null && xinput set-prop {} 'Device Accel Profile' -1" # Disable mouse acceleration for other mice/joysticks/touchpads
 
-~/.local/bin/tools/setup-tablet &
+[ -f "$HOME/.local/bin/tools/setup-tablet" ] && "$HOME/.local/bin/tools/setup-tablet" &
 

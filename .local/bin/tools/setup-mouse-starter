@@ -1,5 +1,0 @@
-#!/bin/sh
-
-export DISPLAY=${DISPLAY}
-"$(dirname "$0")"/setup-mouse &
-

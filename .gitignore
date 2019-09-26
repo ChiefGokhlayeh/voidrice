@@ -1,3 +1,10 @@
 .config/systemd/user/*.wants
 .gnupg
 !.gnupg/gpg-agent.conf
+
+.config/mpv/watch_later
+
+.config/vifm/scripts/README
+.config/vifm/vifm-help.txt
+.config/vifm/vifminfo
+

@@ -20,7 +20,7 @@ interval=60
 command=~/.local/bin/statusbar/disk / "<span font='Font Awesome 5 Free Solid'></span>"
 
 [usb]
-command=~/.local/bin/statusbar/usb -i nvme0n1p1 -i nvme0n1p2 -i nvme0n1p3 -i nvme0n1p4 -i nvme0n1p5 -i nvme0n1p6
+command=~/.local/bin/statusbar/usb -i /dev/sdc1 -i /dev/sdc2 -i /dev/mapper/isw_bfbfdbjabe_Storage1 -i /dev/mapper/isw_bfbfdbjabe_Storage2
 signal=1
 interval=10
 
@@ -76,9 +76,9 @@ signal=10
 [internet]
 interval=10
 
-[battery]
-command=~/.local/bin/statusbar/battery BAT1
-interval=5
+#[battery]
+#command=~/.local/bin/statusbar/battery BAT1
+#interval=5
 
 [bandwidth]
 command=~/.local/bin/statusbar/bandwidth -u MB
