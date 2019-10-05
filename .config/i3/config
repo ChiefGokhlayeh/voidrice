@@ -253,8 +253,13 @@ bindsym $mod+Mod1+O exec --no-startup-id "transset -a 1"
 bindsym $mod+T exec --no-startup-id "transset -a --dec 0.05"
 bindsym $mod+Mod1+T exec --no-startup-id "transset -a 0.85"
 
+# monitors
 bindsym $mod+P exec --no-startup-id "xrandr --auto"
 bindsym $mod+Shift+P exec "arandr"
+
+# screenshot
+bindsym $mod+Print exec "gnome-screenshot -c -a"
+bindsym $mod+Shift+Print exec "gnome-screenshot -i"
 
 # Ensure services are running
 exec --no-startup-id "systemctl restart --user xcompmgr.service"
