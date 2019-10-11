@@ -1,9 +1,29 @@
 #!/bin/sh
+# To be invoked by udev upon pluggin-in of device
 
+#nohup sh -c '
+#	sleep 3
+#
+#	logger "setting up tablet"
+#	if [ ! -z "$(xsetwacom list)" ]; then
+#		xsetwacom set "Wacom Intuos BT M Pad pad" "Button" "1" "button +4 "
+#		xsetwacom set "Wacom Intuos BT M Pad pad" "Button" "2" "button +5 "
+#		xsetwacom set "Wacom Intuos BT M Pad pad" "Button" "3" "key +Delete -Delete "
+#		xsetwacom set "Wacom Intuos BT M Pad pad" "Button" "8" "key +Control_L +z -z "
+#		logger "finished setting up tablet"
+#	else
+#		logger "no wacom devices found"
+#	fi
+#' &
+
+echo "$(date) setting up tablet" >> /tmp/udev.log
 if [ ! -z "$(xsetwacom list)" ]; then
 	xsetwacom set "Wacom Intuos BT M Pad pad" "Button" "1" "button +4 "
 	xsetwacom set "Wacom Intuos BT M Pad pad" "Button" "2" "button +5 "
 	xsetwacom set "Wacom Intuos BT M Pad pad" "Button" "3" "key +Delete -Delete "
 	xsetwacom set "Wacom Intuos BT M Pad pad" "Button" "8" "key +Control_L +z -z "
+	echo "finished setting up tablet" >> /tmp/udev.log
+else
+	echo "no wacom devices found" >> /tmp/udev.log
 fi
 
