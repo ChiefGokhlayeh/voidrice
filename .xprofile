@@ -24,7 +24,6 @@ xinput list --id-only \
 			sh -c "xinput list-props {} | grep 'Device Accel Profile' > /dev/null && xinput set-prop {} 'Device Accel Profile' -1" # Disable mouse acceleration for other mice/joysticks/touchpads
 
 if [ ! -z "$(xsetwacom list)" ]; then
-	xsetwacom set "Wacom Intuos BT M Pen stylus" MapToOutput "HEAD-0"
 	xsetwacom set "Wacom Intuos BT M Pad pad" "Button" "1" "button +4 "
 	xsetwacom set "Wacom Intuos BT M Pad pad" "Button" "2" "button +5 "
 	xsetwacom set "Wacom Intuos BT M Pad pad" "Button" "3" "key +Delete -Delete "
