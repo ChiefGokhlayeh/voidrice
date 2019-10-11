@@ -1,0 +1,9 @@
+#!/bin/sh
+
+if [ ! -z "$(xsetwacom list)" ]; then
+	xsetwacom set "Wacom Intuos BT M Pad pad" "Button" "1" "button +4 "
+	xsetwacom set "Wacom Intuos BT M Pad pad" "Button" "2" "button +5 "
+	xsetwacom set "Wacom Intuos BT M Pad pad" "Button" "3" "key +Delete -Delete "
+	xsetwacom set "Wacom Intuos BT M Pad pad" "Button" "8" "key +Control_L +z -z "
+fi
+
