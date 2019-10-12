@@ -34,6 +34,7 @@ show_marks no
 
 # Disable focusing tiles through mouse-over
 focus_follows_mouse no
+mouse_warping none
 
 # Set modifier key
 set $mod Mod4
