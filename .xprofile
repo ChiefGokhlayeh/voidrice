@@ -13,7 +13,7 @@ xset fp rehash
 #unclutter &	# Remove mouse when idle
 #xcompmgr &		# xcompmgr for transparency
 dunst &			# dunst for notifications
-touchpad-indicator & # touchpad-indicator to avoid accidental mouse movements
+#touchpad-indicator & # touchpad-indicator to avoid accidental mouse movements
 synology-cloud-station-drive & # start cloud sync
 #mpdupdate &
 xinput list --id-only \
