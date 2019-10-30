@@ -1,0 +1,11 @@
+[Service]
+Type=forking
+Restart=no
+ExecStart=/home/andreas/.local/bin/tools/setup-tablet
+
+[Install]
+WantedBy=default.target
+WantedBy=sys-devices-pci0000:00-0000:00:14.0-usb1-1\x2d4-1\x2d4:1.0.device
+WantedBy=sys-devices-pci0000:00-0000:00:14.0-usb1-1\x2d2-1\x2d2:1.0.device
+WantedBy=sys-devices-pci0000:00-0000:00:14.0-usb1-1\x2d5-1\x2d5:1.0.device
+WantedBy=sys-devices-pci0000:00-0000:00:14.0-usb1-1\x2d14-1\x2d14:1.0-bluetooth-hci0-hci0:256.device

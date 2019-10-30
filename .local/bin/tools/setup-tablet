@@ -1,10 +1,13 @@
 #!/bin/sh
-# To be invoked by udev upon pluggin-in of device
 
 sleep 2
 
+DISPLAY=:0
+XAUTHORITY=/home/andreas/.Xauthority
+
 echo "$(date) setting up tablet" >> /tmp/udev.log
 if [ ! -z "$(xsetwacom list)" ]; then
+	xsetwacom set "Wacom Intuos BT M Pen stylus" MapToOutput "HEAD-0"
 	xsetwacom set "Wacom Intuos BT M Pad pad" "Button" "1" "button +4 "
 	xsetwacom set "Wacom Intuos BT M Pad pad" "Button" "2" "button +5 "
 	xsetwacom set "Wacom Intuos BT M Pad pad" "Button" "3" "key +Delete -Delete "
