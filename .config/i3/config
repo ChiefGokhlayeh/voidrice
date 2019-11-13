@@ -267,7 +267,7 @@ exec --no-startup-id "systemctl restart --user xcompmgr.service"
 exec --no-startup-id "systemctl restart --user wallpaper.service"
 exec --no-startup-id "xrdb ~/.Xresources"
 
-assign [class="keepassxc"] $ws4
+assign [class="KeePassXC"] $ws4
 assign [class="Code"] $ws3
 assign [class="Steam"] $ws5
 assign [class="TeamSpeak 3"] $ws5
