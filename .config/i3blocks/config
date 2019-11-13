@@ -17,7 +17,7 @@ interval=30
 
 [disk]
 interval=60
-command=~/.local/bin/statusbar/disk / 
+command=~/.local/bin/statusbar/disk / "<span font='Font Awesome 5 Free Solid'></span>"
 
 [usb]
 command=~/.local/bin/statusbar/usb -i nvme0n1p1 -i nvme0n1p2 -i nvme0n1p3 -i nvme0n1p4 -i nvme0n1p5 -i nvme0n1p6

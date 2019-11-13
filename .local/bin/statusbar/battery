@@ -2,12 +2,12 @@
 # Give a battery name (e.g. BAT0) as an argument.
 
 case $BLOCK_BUTTON in
-    3) pgrep -x dunst >/dev/null && notify-send " Battery module" ": discharging
-: not charging
-♻: stagnant charge
-: charging
-: charged
-: battery very low!
+    3) pgrep -x dunst >/dev/null && notify-send "<span font='Font Awesome 5 Free'></span> Battery module" "<span font='Font Awesome 5 Free'></span>: discharging
+<span font='Font Awesome 5 Free'></span>: not charging
+<span font='Font Awesome 5 Free'>♻</span>: stagnant charge
+<span font='Font Awesome 5 Free'></span>: charging
+<span font='Font Awesome 5 Free'></span>: charged
+<span font='Font Awesome 5 Free'></span>: battery very low!
 - Text color reflects charge left" ;;
 esac
 
@@ -20,24 +20,31 @@ do
 
     if [ "$capacity" -ge 75 ]; then
 	color="$(xrdb -query | grep color2 -m 1 | cut -f 2)"
-	discharge=""
+	discharge="<span font='Font Awesome 5 Free'></span>"
     elif [ "$capacity" -ge 50 ]; then
 	color="$(xrdb -query | grep color3 -m 1 | cut -f 2)"
-	discharge=""
+	discharge="<span font='Font Awesome 5 Free'></span>"
     elif [ "$capacity" -ge 25 ]; then
 	color="$(xrdb -query | grep color1 -m 1 | cut -f 2)"
-	discharge=""
+	discharge="<span font='Font Awesome 5 Free'></span>"
     else
 	color="$(xrdb -query | grep color1 -m 1 | cut -f 2)"
-	discharge=""
-	warn=" "
+	discharge="<span font='Font Awesome 5 Free'></span>"
+	warn="<span font='Font Awesome 5 Free'> </span>"
     fi
 
     [ -z $warn ] && warn=""
 
     [ "$status" = "Charging" ] && color="$(xrdb -query | grep color4 -m 1 | cut -f 2)"
 
-    printf "<span color='%s'>%s%s %s</span>" "$color" "$warn" "$(echo "$status" | sed -e "s/,//;s/Discharging/$discharge/;s/Not Charging//;s/Charging//;s/Unknown//;s/Full//;s/ 0*/ /g;s/ :/ /g")" "$(echo "$capacity" | sed -e 's/$/%/')"
+    printf "<span color='%s'>%s%s %s</span>" "$color" "$warn" "$(echo "$status" | sed -e "
+    s?,??;
+    s?Discharging?$discharge?;
+    s?Not Charging?<span font='Font Awesome 5 Free'></span>?;
+    s?Charging?<span font='Font Awesome 5 Free'></span>?;
+    s?Unknown?<span font='Font Awesome 5 Free'></span>?;
+    s?Full?<span font='Font Awesome 5 Free'></span>?;
+    ")" "$(echo "$capacity" | sed -e 's/$/%/')" | tr -s ' '
 
     if [ "$count" -gt 1 ]; then
 	printf " "

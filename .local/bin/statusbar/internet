@@ -2,26 +2,26 @@
 
 case $BLOCK_BUTTON in
 	1) $TERMINAL_INVOKE nmtui ;;
-	3) pgrep -x dunst >/dev/null && notify-send " Internet module" "\- Click to connect
-: no wifi connection
-: wifi connection with quality
-: no ethernet
-: ethernet working
-: VPN enabled
+	3) pgrep -x dunst >/dev/null && notify-send "<span font='Font Awesome 5 Free'></span> Internet module" "\- Click to connect
+<span font='Font Awesome 5 Free'></span>: no wifi connection
+<span font='Font Awesome 5 Free'></span>: wifi connection with quality
+<span font='Font Awesome 5 Free'></span>: no ethernet
+<span font='Font Awesome 5 Free'></span>: ethernet working
+<span font='Font Awesome 5 Free'></span>: VPN enabled
 " ;;
 esac
 
-[ "$(cat /sys/class/net/w*/operstate)" = 'down' ] && wifiicon=" "
+[ "$(cat /sys/class/net/w*/operstate)" = 'down' ] && wifiicon=""
 
 vpnicon=""
 for tun in $(find -L /sys/class/net -maxdepth 2 -name "tun_flags" 2>/dev/null)
 do
-	[ "$(cat $(dirname $tun)/carrier)" = '1' ] && vpnicon=" "
+	[ "$(cat $(dirname $tun)/carrier)" = '1' ] && vpnicon="<span font='Font Awesome 5 Free'></span>"
 done
 
-[ ! -n "${wifiicon+var}" ] && wifiicon=$(grep "^\s*w" /proc/net/wireless | awk '{ print " ", int($3 * 100 / 70) "%" }')
+[ ! -n "${wifiicon+var}" ] && wifiicon=$(grep "^\s*w" /proc/net/wireless | awk "{ print \"<span font='Font Awesome 5 Free'></span>\", int(\$3 * 100 / 70) \"%\" }")
 
 color=$(xrdb -query | grep color14 -m 1 | cut -f 2)
 
-printf "<span color='%s'>%s%s%s</span>" "$color" "$wifiicon" "$(paste -d ' ' /sys/class/net/e*/operstate | sed "s/down//;s/up//" | tr -d '\n')" "$vpnicon"
+printf "<span color='%s'>%s %s %s</span>" "$color" "$wifiicon" "$(paste -d ' ' /sys/class/net/e*/operstate | sed "s?down?<span font='Font Awesome 5 Free'></span>?;s?up?<span font='Font Awesome 5 Free'></span>?" | tr -d '\n')" "$vpnicon" | tr -s ' '
 

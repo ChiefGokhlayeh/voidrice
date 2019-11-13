@@ -1,8 +1,8 @@
 #!/bin/bash
 
 case $BLOCK_BUTTON in
-	1) notify-send " Memory hogs" "$(ps axch -o cmd:15,%mem --sort=-%mem | head)" ;;
-	3) notify-send " Memory module" "\- Shows Memory Used/Total.
+	1) notify-send " Memory hogs" "$(ps axch -o cmd:15,%mem --sort=-%mem | head)" ;;
+	3) notify-send " Memory module" "\- Shows Memory Used/Total.
 - Click to show memory hogs." ;;
 esac
 
@@ -13,5 +13,5 @@ read used total <<< $(LC_ALL=C free -h | awk '/^Mem:/ {print $3 " " $2}')
 icon_color=$(xrdb -query | grep color9 -m 1 | cut -f 2)
 text_color=$(xrdb -query | grep color13 -m 1 | cut -f 2)
 
-printf "<span color='%s'></span> <span color='%s'>%s / %s</span>" "$icon_color" "$text_color" "$used" "$total"
+printf "<span color='%s'></span> <span color='%s'>%s / %s</span>" "$icon_color" "$text_color" "$used" "$total"
 
