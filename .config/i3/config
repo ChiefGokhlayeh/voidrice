@@ -65,7 +65,7 @@ bindsym $mod+Shift+q kill
 bindsym Mod1+F4 kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec "PATH=$PATH:~/.local/bin/i3cmds dmenu_run"
+bindsym $mod+d exec "PATH=$PATH:~/.local/bin/i3cmds dmenu_run -nb '#333333' -sb '#8c0333' -fn 'Monospace-12pt'"
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
