@@ -7,18 +7,13 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.vim/plugged')
-"Plug 'tpope/vim-surround'
-"Plug 'scrooloose/nerdtree'
-"Plug 'junegunn/goyo.vim'
-"Plug 'PotatoesMaster/i3-vim-syntax'
-"Plug 'jreybert/vimagit'
-"Plug 'LukeSmithxyz/vimling'
-"Plug 'vimwiki/vimwiki'
-Plug 'bling/vim-airline'
-"Plug 'tpope/vim-commentary'
-"Plug 'vifm/vifm.vim'
-"Plug 'kovetskiy/sxhkd-vim'
+Plug 'airblade/vim-gitgutter'
+Plug 'junegunn/fzf.vim'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-sleuth'
+Plug 'vim-airline/vim-airline'
+Plug 'w0rp/ale'
 call plug#end()
 
 set bg=light
